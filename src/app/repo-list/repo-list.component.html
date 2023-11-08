@@ -1,0 +1,30 @@
+<div *ngIf="fetchingRepos" class="mt-4">
+  <app-loader [text]="'Loading Repos...'"></app-loader>
+</div>
+
+<div *ngIf="userRepos && userRepos.total_count > 0">
+
+  <div class="flex flex-col md:grid md:grid-cols-2 gap-4">
+    <app-repo *ngFor="let repo of userRepos.items" [repo]="repo"></app-repo>
+  </div>
+
+  <div class="mt-5 flex justify-center">
+
+    <div>
+      <ul>
+        <li
+          *ngFor="let repo of userRepos.items | paginate: { itemsPerPage: maxPerPage, currentPage: currentPage, totalItems: maxRepoLimiter() }">
+        </li>
+      </ul>
+    </div>
+
+    <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Older" nextLabel="Newer"
+      [responsive]="true"></pagination-controls>
+
+  </div>
+
+</div>
+
+<div *ngIf="!userRepos?.total_count && !fetchingRepos">
+  <app-error [error]="'No repos available :/'"></app-error>
+</div>
