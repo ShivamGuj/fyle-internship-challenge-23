@@ -9,7 +9,7 @@ export class GithubService {
   // Auth token to increase the number of request we can make per hour
   // Explicitly requesting v3 version of the REST API
 
-  TOKEN_GITHUB = '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';
+  TOKEN_GITHUB = '';
 
   headers: HttpHeaders = new HttpHeaders({
     Authorization: `token ${this.TOKEN_GITHUB}`,
